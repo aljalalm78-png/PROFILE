@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0b0c">
+  <meta name="description" content="بطاقة الاتصال الرقمية لمحمد محمد حمود الجلال">
+  <title>محمد محمد حمود الجلال | بطاقة الاتصال</title>
+
+  <!-- QR generator. For production, self-host this library for maximum independence. -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+  <style>
+    :root{
+      --bg:#090a0b;
+      --panel:#121416;
+      --panel-2:#17191c;
+      --gold:#c8a35a;
+      --gold-soft:#e0c889;
+      --white:#f7f5ef;
+      --muted:#aaa79f;
+      --line:rgba(200,163,90,.24);
+      --radius:24px;
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(200,163,90,.12), transparent 35%),
+        var(--bg);
+      color:var(--white);
+      font-family:system-ui,-apple-system,"Segoe UI","Noto Sans Arabic",Tahoma,Arial,sans-serif;
+    }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .wrap{max-width:620px;margin:auto;padding:20px 16px 40px}
+    .top{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:10px;
+    }
+    .icon-btn{
+      width:44px;height:44px;border-radius:50%;
+      border:1px solid var(--line);
+      background:#101214;color:var(--gold-soft);
+      display:grid;place-items:center;cursor:pointer;
+    }
+    .hero{text-align:center;padding:18px 8px 10px}
+    .avatar{
+      width:92px;height:92px;border-radius:50%;
+      margin:0 auto 16px;
+      border:1px solid var(--gold);
+      background:linear-gradient(145deg,#222,#0d0e0f);
+      display:grid;place-items:center;
+      color:var(--gold-soft);font-size:31px;font-weight:700;
+      box-shadow:0 0 0 6px rgba(200,163,90,.06);
+    }
+    h1{margin:0;font-size:29px;line-height:1.25;letter-spacing:.1px}
+    .en-name{
+      margin-top:5px;color:#ddd9d0;font-size:18px;direction:ltr;
+      text-align:center;
+    }
+    .role{margin-top:14px;font-size:16px;color:var(--gold-soft);font-weight:700}
+    .brand{margin-top:5px;font-size:15px;color:var(--white)}
+    .dept{margin-top:9px;color:var(--muted);font-size:14px}
+    .actions{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+      margin:18px 0 16px;
+    }
+    .action{
+      min-height:82px;border:1px solid var(--line);border-radius:20px;
+      background:linear-gradient(145deg,#181a1d,#101113);
+      color:var(--white);display:flex;flex-direction:column;
+      align-items:center;justify-content:center;gap:7px;
+      cursor:pointer;
+    }
+    .action .ico{font-size:23px;color:var(--gold-soft)}
+    .action small{font-size:12px;color:#dedbd3}
+    .card{
+      background:linear-gradient(145deg,var(--panel-2),var(--panel));
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:var(--radius);padding:18px;
+      margin-top:12px;box-shadow:var(--shadow);
+    }
+    .section-title{
+      display:flex;align-items:center;gap:10px;
+      color:var(--gold-soft);font-weight:800;font-size:14px;
+      margin-bottom:13px;
+    }
+    .section-title span{font-size:19px}
+    .row{
+      display:flex;align-items:center;gap:12px;
+      padding:12px 0;border-bottom:1px solid rgba(255,255,255,.07);
+    }
+    .row:last-child{border-bottom:0;padding-bottom:0}
+    .row:first-of-type{padding-top:0}
+    .row-main{min-width:0;flex:1}
+    .label{font-size:11px;color:var(--muted);margin-bottom:4px}
+    .value{font-size:16px;direction:ltr;text-align:right;word-break:break-word}
+    .row-action{
+      width:38px;height:38px;border-radius:12px;
+      border:1px solid var(--line);background:#0d0e10;
+      color:var(--gold-soft);display:grid;place-items:center;
+      flex:0 0 auto;cursor:pointer;
+    }
+    .links{
+      display:grid;grid-template-columns:repeat(5,1fr);gap:8px;
+    }
+    .link{
+      min-height:74px;border:1px solid rgba(200,163,90,.18);
+      background:#0e1012;border-radius:16px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:6px;text-align:center;
+    }
+    .link b{font-size:20px;color:var(--gold-soft)}
+    .link span{font-size:10px;color:#ddd9d0}
+    .qr-wrap{text-align:center}
+    #qrcode{
+      width:210px;height:210px;margin:10px auto 14px;
+      padding:10px;background:#fff;border-radius:18px;
+      display:grid;place-items:center;
+    }
+    #qrcode img{max-width:190px;max-height:190px}
+    .qr-note{color:var(--muted);font-size:13px;line-height:1.7}
+    .primary{
+      width:100%;border:1px solid var(--gold);
+      background:linear-gradient(135deg,#d4b36b,#a8833e);
+      color:#0a0a0a;font-weight:900;border-radius:16px;
+      padding:14px;cursor:pointer;margin-top:12px;
+    }
+    .secondary{
+      width:100%;border:1px solid var(--line);
+      background:#0d0f10;color:var(--white);font-weight:700;
+      border-radius:16px;padding:14px;cursor:pointer;margin-top:10px;
+    }
+    .footer{text-align:center;color:#77746d;font-size:11px;padding:20px 0 0}
+    .ltr{direction:ltr}
+    @media(max-width:430px){
+      .wrap{padding:14px 12px 28px}
+      h1{font-size:25px}.en-name{font-size:15px}
+      .actions{gap:7px}.action{min-height:76px}
+      .links{grid-template-columns:repeat(3,1fr)}
+      .links .link:nth-child(4),.links .link:nth-child(5){grid-column:auto}
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="top">
+    <button class="icon-btn" onclick="history.back()" aria-label="رجوع">‹</button>
+    <button class="icon-btn" onclick="shareCard()" aria-label="مشاركة">↗</button>
+  </div>
+
+  <header class="hero">
+    <div class="avatar" aria-hidden="true">م ج</div>
+    <h1>محمد محمد حمود الجلال</h1>
+    <div class="en-name">Mohammed Mohammed Hamoud Aljalal</div>
+    <div class="role">مؤسس ومدير منصة وسيطك الطبي</div>
+    <div class="brand">YOUR MEDICAL MEDIATOR</div>
+    <div class="dept">إدارة الأعمال | العلاقات | العمليات واللوجستيات</div>
+  </header>
+
+  <div class="actions">
+    <a class="action" href="tel:+967784447447"><div class="ico">☎</div><small>اتصال</small></a>
+    <a class="action" href="https://wa.me/967784447447" target="_blank" rel="noopener"><div class="ico">◉</div><small>واتساب</small></a>
+    <a class="action" href="mailto:m.m.h.aljalal@gmail.com"><div class="ico">✉</div><small>بريد إلكتروني</small></a>
+    <button class="action" onclick="downloadVCard()"><div class="ico">＋</div><small>حفظ جهة الاتصال</small></button>
+  </div>
+
+  <section class="card">
+    <div class="section-title"><span>☎</span> الهاتف</div>
+    <div class="row">
+      <div class="row-main"><div class="label">الهاتف</div><div class="value">+967 784447447</div></div>
+      <a class="row-action" href="tel:+967784447447">☎</a>
+    </div>
+    <div class="row">
+      <div class="row-main"><div class="label">الهاتف</div><div class="value">+967 784004407</div></div>
+      <a class="row-action" href="tel:+967784004407">☎</a>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-title"><span>✉</span> البريد الإلكتروني</div>
+    <div class="row">
+      <div class="row-main"><div class="label">البريد الإلكتروني</div><div class="value">m.m.h.aljalal@gmail.com</div></div>
+      <a class="row-action" href="mailto:m.m.h.aljalal@gmail.com">✉</a>
+    </div>
+    <div class="row">
+      <div class="row-main"><div class="label">البريد الإلكتروني</div><div class="value">contact.ymmadi@gmail.com</div></div>
+      <a class="row-action" href="mailto:contact.ymmadi@gmail.com">✉</a>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-title"><span>⌖</span> الموقع</div>
+    <div class="row">
+      <div class="row-main"><div class="label">الموقع</div><div class="value" dir="rtl">صنعاء، اليمن</div></div>
+      <a class="row-action" href="https://www.google.com/maps/search/?api=1&query=Sana%27a%2CYemen" target="_blank" rel="noopener">⌖</a>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-title"><span>↗</span> المنصات</div>
+    <div class="links">
+      <a class="link" href="https://www.facebook.com/m.m.h.aljalal" target="_blank" rel="noopener"><b>f</b><span>Facebook</span></a>
+      <a class="link" href="https://www.instagram.com/m.m.h.aljalal" target="_blank" rel="noopener"><b>◎</b><span>Instagram</span></a>
+      <a class="link" href="https://wa.me/967784447447" target="_blank" rel="noopener"><b>◉</b><span>WhatsApp 1</span></a>
+      <a class="link" href="https://wa.me/967784004407" target="_blank" rel="noopener"><b>◉</b><span>WhatsApp 2</span></a>
+      <a class="link" href="https://www.linkedin.com/in/mmhaljalal/" target="_blank" rel="noopener"><b>in</b><span>LinkedIn</span></a>
+    </div>
+  </section>
+
+  <section class="card qr-wrap">
+    <div class="section-title"><span>▦</span> QR Code</div>
+    <div id="qrcode"></div>
+    <div class="qr-note">
+      امسح الرمز للوصول إلى بطاقة الاتصال الرقمية.<br>
+      <b>يجب أن يشير QR إلى رابط ثابت للبطاقة</b> حتى يمكن تحديث البيانات مستقبلًا دون تغيير الرمز.
+    </div>
+    <button class="primary" onclick="downloadVCard()">حفظ جهة الاتصال (vCard)</button>
+    <button class="secondary" onclick="shareCard()">مشاركة البطاقة</button>
+    <button class="secondary" onclick="writeNFC()">NFC — كتابة رابط البطاقة</button>
+  </section>
+
+  <div class="footer">YOUR MEDICAL MEDIATOR • Digital Contact Card</div>
+</div>
+
+<script>
+  /*
+    IMPORTANT FOR FUTURE UPDATES:
+    QR_CODE_TARGET must be a permanent HTTPS URL, e.g.
+    https://contact.example.com/mmhaljalal
+    Do NOT encode the vCard data itself into the QR.
+    Update this URL only once when the permanent domain/page is ready.
+  */
+  const CARD = {
+    qrCodeTarget: "https://YOUR-DOMAIN.example/mmhaljalal",
+    name: "محمد محمد حمود الجلال",
+    englishName: "Mohammed Mohammed Hamoud Aljalal",
+    phones: ["+967784447447", "+967784004407"],
+    emails: ["m.m.h.aljalal@gmail.com", "contact.ymmadi@gmail.com"],
+    organization: "وسيطك الطبي | YOUR MEDICAL MEDIATOR",
+    title: "مؤسس ومدير منصة وسيطك الطبي",
+    department: "إدارة الأعمال | العلاقات | العمليات واللوجستيات",
+    location: "صنعاء، اليمن",
+    urls: {
+      facebook: "https://www.facebook.com/m.m.h.aljalal",
+      instagram: "https://www.instagram.com/m.m.h.aljalal",
+      whatsapp1: "https://wa.me/967784447447",
+      whatsapp2: "https://wa.me/967784004407",
+      linkedin: "https://www.linkedin.com/in/mmhaljalal/"
+    }
+  };
+
+  function escapeV(s){
+    return String(s).replace(/\\/g,"\\\\").replace(/\n/g,"\\n").replace(/;/g,"\\;").replace(/,/g,"\\,");
+  }
+
+  function makeVCard(){
+    return [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      "FN;CHARSET=UTF-8:"+escapeV(CARD.name),
+      "N;CHARSET=UTF-8:محمد محمد;حمود الجلال;;;",
+      "X-NAME-EN:"+escapeV(CARD.englishName),
+      "ORG;CHARSET=UTF-8:"+escapeV(CARD.organization),
+      "TITLE;CHARSET=UTF-8:"+escapeV(CARD.title),
+      "NOTE;CHARSET=UTF-8:"+escapeV(CARD.department),
+      "TEL;TYPE=CELL,VOICE:"+CARD.phones[0],
+      "TEL;TYPE=CELL,VOICE:"+CARD.phones[1],
+      "EMAIL;TYPE=INTERNET:"+CARD.emails[0],
+      "EMAIL;TYPE=INTERNET:"+CARD.emails[1],
+      "ADR;TYPE=WORK;CHARSET=UTF-8:;;صنعاء;;;اليمن",
+      "URL:"+CARD.urls.linkedin,
+      "URL:"+CARD.urls.facebook,
+      "URL:"+CARD.urls.instagram,
+      "URL:"+CARD.urls.whatsapp1,
+      "URL:"+CARD.urls.whatsapp2,
+      "END:VCARD"
+    ].join("\r\n");
+  }
+
+  function downloadVCard(){
+    const blob = new Blob([makeVCard()], {type:"text/vcard;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Mohammed_Mohammed_Hamoud_Aljalal.vcf";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  async function shareCard(){
+    const data = {
+      title: CARD.name,
+      text: "بطاقة الاتصال الرقمية — "+CARD.name,
+      url: CARD.qrCodeTarget
+    };
+    if(navigator.share){
+      try{ await navigator.share(data); }catch(e){}
+    }else{
+      await navigator.clipboard?.writeText(CARD.qrCodeTarget);
+      alert("تم نسخ رابط البطاقة.");
+    }
+  }
+
+  async function writeNFC(){
+    if(!("NDEFReader" in window)){
+      alert("Web NFC غير مدعوم في هذا المتصفح/الجهاز. يمكن استخدام تطبيق كتابة NFC على Android، بينما iPhone لا يسمح للمتصفح ببرمجة بطاقات NFC العامة بهذه الطريقة.");
+      return;
+    }
+    if(CARD.qrCodeTarget.includes("YOUR-DOMAIN")){
+      alert("أولًا ضع رابط البطاقة الدائم HTTPS داخل qrCodeTarget، ثم اكتب الرابط على شريحة NFC.");
+      return;
+    }
+    try{
+      const ndef = new NDEFReader();
+      await ndef.write({records:[{recordType:"url",data:CARD.qrCodeTarget}]});
+      alert("تمت كتابة رابط البطاقة على شريحة NFC.");
+    }catch(e){
+      alert("تعذر كتابة NFC: "+e.message);
+    }
+  }
+
+  window.addEventListener("DOMContentLoaded", ()=>{
+    const qr = document.getElementById("qrcode");
+    if(window.QRCode && !CARD.qrCodeTarget.includes("YOUR-DOMAIN")){
+      new QRCode(qr,{text:CARD.qrCodeTarget,width:190,height:190,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});
+    }else{
+      qr.innerHTML = "<div style='color:#111;font-size:12px;text-align:center;padding:20px'>ضع رابط البطاقة الدائم داخل<br><b>qrCodeTarget</b><br>لتوليد QR النهائي.</div>";
+    }
+  });
+</script>
+</body>
+</html>
